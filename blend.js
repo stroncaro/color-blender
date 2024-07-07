@@ -43,3 +43,10 @@ function num_to_hex(n) {
 
   return h;
 }
+
+function string_rgb_split(string) {
+  if (typeof string !== 'string' && !(string instanceof String)) throw "not a string";
+  if (string.length != 6) throw "wrong string length: must have 6 chars"
+
+  return [string.slice(0,2), string.slice(2,4), string.slice(4,6)];
+}
