@@ -78,6 +78,7 @@ function blend_colors(rgb1, rgb2, t) {
 document.addEventListener('DOMContentLoaded', function(){
   const sliders = Array.from(document.getElementsByClassName('slider'));
   const text_inputs = Array.from(document.getElementsByClassName('text-input'));
+  const previews = Array.from(document.getElementsByClassName('preview-box'));
 
   function update_background() {
     const colors = text_inputs
@@ -101,9 +102,12 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  text_inputs.forEach(text_input => {
+  text_inputs.forEach((text_input, i) => {
     text_input.addEventListener('input', () => {
-      if (text_input.value.length == 6) update_background();
+      if (text_input.value.length == 6) {
+        previews[i].style.backgroundColor = '#' + text_input.value;
+        update_background();
+      }
     });
   });
 })

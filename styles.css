@@ -25,3 +25,13 @@ h2 {
   width: 3.6em;
   font-family: Courier, monospace;
 }
+
+.preview-box {
+  border-style: solid;
+  border-color: #606060;
+  border-width: 1px;
+  display: inline-block;
+  min-width: 1rem;
+  min-height: 1rem;
+  background-color: black;
+}
