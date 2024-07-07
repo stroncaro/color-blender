@@ -66,10 +66,44 @@ function blend_color_value(a, b, t) {
 }
 
 function calc_t_from_nums(a, b) {
-  return a / (a + b);
+  return a == 0 && b == 0 ? 0.5 : b / (a + b);
 }
 
 function blend_colors(rgb1, rgb2, t) {
   const rgbs = zip(rgb1, rgb2);
   return rgbs.map(vals => blend_color_value(vals[0], vals[1], t));
 }
+
+
+document.addEventListener('DOMContentLoaded', function(){
+  const sliders = Array.from(document.getElementsByClassName('slider'));
+  const text_inputs = Array.from(document.getElementsByClassName('text-input'));
+
+  function update_background() {
+    const colors = text_inputs
+      .map(text_input => text_input.value)
+      .map(color_hex => string_rgb_split(color_hex))
+      .map(hex_arr => hex_arr.map(h => hex_to_num(h)));
+
+    const t = calc_t_from_nums(Number(sliders[0].value), Number(sliders[1].value));
+
+    const blend = blend_colors(colors[0], colors[1], t)
+      .map(n => num_to_hex(n))
+      .map(h => h.length == 1 ? '0' + h : h);
+    const new_hex = '#' + blend[0] + blend[1] + blend[2];
+
+    document.body.style.backgroundColor = new_hex;
+  }
+
+  sliders.forEach(slider => {
+    slider.addEventListener('input', () => {
+      update_background();
+    });
+  });
+
+  text_inputs.forEach(text_input => {
+    text_input.addEventListener('input', () => {
+      if (text_input.value.length == 6) update_background();
+    });
+  });
+})
