@@ -50,3 +50,26 @@ function string_rgb_split(string) {
 
   return [string.slice(0,2), string.slice(2,4), string.slice(4,6)];
 }
+
+function zip(a, b) {
+  if (a.length != b.length) throw "can't zip: not the same length";
+
+  return a.map((x, i) => [x, b[i]]);
+}
+
+function blend_color_value(a, b, t) {
+  /* 
+  blend math source:
+  https://stackoverflow.com/questions/726549/algorithm-for-additive-color-mixing-for-rgb-values
+  */
+  return Math.sqrt((1-t) * (a**2) + t * (b**2));
+}
+
+function calc_t_from_nums(a, b) {
+  return a / (a + b);
+}
+
+function blend_colors(rgb1, rgb2, t) {
+  const rgbs = zip(rgb1, rgb2);
+  return rgbs.map(vals => blend_color_value(vals[0], vals[1], t));
+}
