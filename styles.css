@@ -1,0 +1,14 @@
+.heading {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.input-container, .text-input {
+  font-size: 20px;
+}
+
+.text-input {
+  width: 3.6em;
+  font-family: Courier, monospace;
+}
